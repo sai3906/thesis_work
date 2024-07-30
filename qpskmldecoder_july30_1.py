@@ -2,8 +2,9 @@ import os
 os.system('cls' if os.name == 'nt' else 'clear')
 
 import numpy as np
-
-bits=np.array([0,0,0,1,1,0])
+#enter the number of bits to transmit in even number
+no_of_bits=30
+bits=np.random.choice([0,1],no_of_bits)
 print("msg  bits",bits)
 
 
@@ -24,12 +25,12 @@ for i in range(0,len(bits),2):
 #print("mod",modulated_bits)
 
 
-#addin noise
+#adding noise
 received_signal=np.array([])
 for i in range(0,len(modulated_bits)):
     a=modulated_bits[i].real + np.random.normal(0,1,1)
     b=modulated_bits[i].imag + np.random.normal(0,1,1)
-    received_signal=np.append(received_signal,a+(1j * b))
+    received_signal=np.append(received_signal, a+(1j * b))
 #print("channel op ",received_signal,"\n")
 
 symbols = {
