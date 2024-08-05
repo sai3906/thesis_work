@@ -1,5 +1,5 @@
 import numpy as np
-def qpsk_demodulation(received_signal):
+def qpsk(received_signal):
     symbols = {
         1 + 1j: (0, 0),
         -1 + 1j: (0, 1),
@@ -17,5 +17,3 @@ def qpsk_demodulation(received_signal):
     received_signal1=np.array([int(i)  for i in demodulated_bits])
     #converting into int just for appearance
     return received_signal1
-
-
