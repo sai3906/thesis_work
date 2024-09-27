@@ -50,9 +50,10 @@ ber_bpsk_sum_with_fading=simulate_mac_with_fading(snr_db_range,no_of_users,no_of
 # print(ber_bpsk_sum_with_channel_coeff) 
 print("BER",ber_bpsk_sum_with_fading)
 
-"""
 # Convert SNR values from dB to linear scale
 snr_lin = 10**(snr_db_range / 10)  # SNR in linear scale
+
+
 # Plot the simulated BER values
 plt.semilogy(snr_db_range, ber_bpsk_sum_with_fading, linestyle='-', color="g", label='simulated')
 #theoritical values
@@ -63,5 +64,3 @@ plt.legend()
 plt.title("BPSK Two Users") 
 plt.grid(True)
 plt.show()
-
-"""
