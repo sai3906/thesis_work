@@ -9,7 +9,7 @@ import error_21oct as er
 import theorital_error_21oct as th_err
 
 
-rnd_seed=2
+rnd_seed=12
 print("each row represent a user\neach column represents a time slot\n")
 #Function to simulate the system for different SNR values
 def simulate_mac_with_fading(snr_db_range,no_of_users,nvps,rnd_seed):
@@ -66,6 +66,8 @@ snr_lin = 10**(snr_db_range / 10)  # SNR in linear scale
 # Plot the simulated BER values
 plt.semilogy(snr_db_range, mse_simulated, linestyle='-', color="g", label='simulated')
 plt.semilogy(snr_db_range, mse_theoritical, linestyle='-', color="r", label='theoritical')     
+plt.xlabel("SNR(dB)")
+plt.ylabel("MSE")
 plt.legend()         
 plt.title("MSE of linear estimator") 
 plt.show()
