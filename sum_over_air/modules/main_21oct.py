@@ -5,9 +5,9 @@ import  matplotlib.pyplot as plt
 import source as  src
 import channel as ch
 import demodulation_21oct as dmd
-import error as er
+import error_21oct as er
 import theorital_error_21oct as th_err
-    
+
 
 rnd_seed=2
 print("each row represent a user\neach column represents a time slot\n")
