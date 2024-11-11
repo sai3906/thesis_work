@@ -3,12 +3,11 @@ import numpy as np
 pmax=2
 no_of_sources=4
 snr_db=2
-threshold_prob=0.9
+threshold_prob=0.98
 no_of_slots=2
 channel_threshold=np.sqrt( 2*np.log(  (1/ (1-(1-threshold_prob )**(1/no_of_slots))  )  ) )
+rnd_seed=13
 
-
-received=np.array([])
 
 def source1(no_of_users,rnd_seed):
     np.random.seed(rnd_seed)
@@ -25,23 +24,24 @@ def demod(received_signal,channel_coeff,snr_db):
     return received_signal*a_opt
 
 
-source_main=source1(no_of_sources,15)
+source_main=source1(no_of_sources,rnd_seed)
 source=source_main.copy()
 
 
 # source_main=np.array([i for i in range(1,no_of_sources+1)])
 # source=source_main.copy()
 
+recovered1=np.array([])
 channel_coeff=np.random.randn(len(source))
 transmitted_1=source[channel_coeff>channel_threshold]
 channel_gains=channel_coeff[channel_coeff>channel_threshold]
 pre_process=np.minimum((np.sqrt(pmax)) ,  channel_threshold/channel_gains)
 received= ((transmitted_1 * channel_gains * pre_process) + np.random.randn(len(transmitted_1)))
 recovered=demod(received,channel_gains,snr_db)
+recovered1=np.append(recovered1,recovered)
 print("source:",source)
 print("tr1",transmitted_1)
-print("rc1",received)
-print("rcvrd",recovered)
+print("rc1",recovered)
 print("\n")
 no_of_slots=0
 
@@ -56,11 +56,11 @@ while(len(source)>0):
         pre_process=np.minimum((np.sqrt(pmax)) ,  channel_threshold/channel_gains)
         received=(trasnmitted_1 * channel_gains * pre_process) + np.random.normal(0,1,len(trasnmitted_1))
         recovered=demod(received,channel_gains,snr_db)
+        recovered1=np.append(recovered1,recovered)
         
         print("source:",source)
         print(trasnmitted_1)
-        print(received) 
-        print("rcvrd",recovered)
+        print(recovered)
         break 
      
     if len(source)==0:
@@ -72,12 +72,12 @@ while(len(source)>0):
     pre_process=np.minimum((np.sqrt(pmax)) ,  channel_threshold/channel_gains)
     received=(trasnmitted_1 * channel_gains * pre_process) + np.random.normal(0,1,len(trasnmitted_1))
     recovered=demod(received,channel_gains,snr_db)
+    recovered1=np.append(recovered1,recovered)
     
     print("source:",source)
     print(trasnmitted_1)
-    print(received)
-    print("rcvrd",recovered)
+    print(recovered)
     print("\n")
 post_process=((np.sum(np.mean(channel_gains*pre_process)))  /  ( (np.sum(np.sum(channel_gains*pre_process)))**2 +no_of_slots*np.var(channel_coeff) ))
 print("Tx",source_main,":",np.sum(source_main))
-print("RX", received,np.sum(received))
+print("RX", recovered1,np.sum(recovered1))
