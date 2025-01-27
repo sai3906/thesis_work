@@ -140,8 +140,6 @@ plt.show()
 
 # %% [markdown]
 # this is averaging over msg,channel coefficients and noise since random seed is not being used anywhere
+#these good results are due to available power is too high hence b=1/h is always less than sqrt(p) hence b is always 1/h   
 
-# %% [markdown]
-# 
-
-
+# %%
